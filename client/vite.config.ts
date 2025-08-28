@@ -1,7 +1,23 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { resolve } from "path";
 
-// https://vite.dev/config/
+import react from "@vitejs/plugin-react";
+import { defineConfig } from "vite";
+
 export default defineConfig({
-  plugins: [react()],
-})
+  plugins: [
+    react({
+      include: "**/*.jsx",
+    }),
+  ],
+  build: {
+    outDir: "build", // CRA's default build output
+  },
+  define: {
+    "import.meta.env": {}, // Prevents ESLint issues
+  },
+  resolve: {
+    alias: {
+      "@": resolve(__dirname, "src"),
+    },
+  },
+});
