@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
+const serverless = require("serverless-http");
 
 const app = express();
 
@@ -91,4 +92,13 @@ app.get("/api", (req, res) => {
   res.send("Api route");
 });
 
-app.listen(process.env.PORT || 8000, "0.0.0.0");
+// app.listen(process.env.PORT || 8000, "0.0.0.0");
+
+if (process.env.VERCEL) {
+  module.exports = serverless(app); // για Vercel serverless
+} else {
+  const port = process.env.PORT || 3000;
+  app.listen(port, () => {
+    console.log(`Server running locally on http://localhost:${port}`);
+  });
+}
