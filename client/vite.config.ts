@@ -1,5 +1,3 @@
-import { resolve } from "path";
-
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 
@@ -10,14 +8,14 @@ export default defineConfig({
     }),
   ],
   build: {
-    outDir: "build", // CRA's default build output
+    outDir: "dist", // αυτό είναι default, αλλά καλό να το βάλεις ρητά
   },
   define: {
     "import.meta.env": {}, // Prevents ESLint issues
   },
   resolve: {
     alias: {
-      "@": resolve(__dirname, "src"),
+      "@": "/src", // απευθείας από root /src
     },
   },
 });
