@@ -1,5 +1,7 @@
+/// <reference types="node" />
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
+import path from "path";
 
 export default defineConfig({
   plugins: [
@@ -15,7 +17,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      "@": "/src", // απευθείας από root /src
+      "@": path.resolve(process.cwd(), "src"), // ✅ works locally & on Vercel
     },
   },
 });

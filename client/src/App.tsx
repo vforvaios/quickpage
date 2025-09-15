@@ -1,6 +1,6 @@
 import { HelmetProvider } from "react-helmet-async";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Login from "./components/Login";
+import Login from "@/components/Login";
 // import ProtectedRoute from "./components/ProtectedRoute";
 
 const App = () => {
@@ -10,14 +10,7 @@ const App = () => {
         {/* {userToken && <Header />} */}
         <Routes>
           <Route path="/login" element={<Login />} />
-          {/* <Route
-            path="/"
-            element={
-              <ProtectedRoute isAllowed={userToken}>
-                <Dashboard />
-              </ProtectedRoute>
-            }
-          /> */}
+          <Route path="/" element={<Login />} />
 
           {/* <Route path="*" element={<PageNotFound />} /> */}
         </Routes>
