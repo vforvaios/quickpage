@@ -1,10 +1,13 @@
-import { Box, Button, List, ListItem } from "@mui/material";
+import { Box, Button, Drawer } from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+
 import {
-  Link as RouterLink,
+  NavLink as RouterLink,
   type LinkProps as RouterLinkProps,
 } from "react-router-dom";
-import logo from "../assets/react.svg";
+import logo from "../assets/logo.png";
 import React from "react";
+import Menu from "./Menu";
 
 // forwardRef so TS + MUI accept it
 const AdapterLink = React.forwardRef<HTMLAnchorElement, RouterLinkProps>(
@@ -12,51 +15,45 @@ const AdapterLink = React.forwardRef<HTMLAnchorElement, RouterLinkProps>(
 );
 
 const HeaderMenu = () => {
+  const [open, setOpen] = React.useState<boolean>(false);
+
+  const toggleDrawer = (newOpen: boolean) => () => {
+    setOpen(newOpen);
+  };
+
   return (
-    <Box
-      m={1}
-      display="flex"
-      justifyContent="space-between"
-      alignItems="center"
-    >
-      <img src={logo} />
-      <nav style={{ flexGrow: 1, maxWidth: 400 }}>
-        <List
-          className="header-menu"
-          component="ul"
-          sx={{
-            margin: 0,
-            padding: 0,
-            listStyleType: "none",
-            display: "flex",
-            gap: "12px",
-            justifyContent: "center",
-            alignItems: "center",
-            textAlign: "center",
-          }}
-        >
-          <ListItem sx={{ display: "block", textAlign: "center" }}>
-            <AdapterLink to="/">Home</AdapterLink>
-          </ListItem>
-
-          <ListItem sx={{ display: "block", textAlign: "center" }}>
-            <AdapterLink to="/about">About Us</AdapterLink>
-          </ListItem>
-
-          <ListItem sx={{ display: "block", textAlign: "center" }}>
-            <AdapterLink to="/pricing">Pricing</AdapterLink>
-          </ListItem>
-        </List>
-      </nav>
-      <Button
-        to="/login"
-        component={AdapterLink}
-        color="primary"
-        variant="contained"
+    <>
+      <Box
+        m={1}
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
       >
-        Login
-      </Button>
-    </Box>
+        <div className="logo">
+          <img src={logo} />
+        </div>
+        <Menu mode="desktop" />
+        <Box
+          display="flex"
+          gap={1}
+          justifyContent="flex-end"
+          alignItems="center"
+        >
+          <Button
+            to="/login"
+            component={AdapterLink}
+            color="primary"
+            variant="contained"
+          >
+            Login
+          </Button>
+          <MenuIcon className="hidden" onClick={toggleDrawer(true)} />
+        </Box>
+      </Box>
+      <Drawer open={open} onClose={toggleDrawer(false)}>
+        <Menu />
+      </Drawer>
+    </>
   );
 };
 

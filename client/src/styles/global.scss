@@ -1,16 +1,32 @@
+@use "./menu.scss";
+@use "./buttons.scss";
+@use "./responsive.scss";
+
 body {
+  font-size: 16px;
   * {
     font-family: "Open Sans", sans-serif !important;
     box-sizing: border-box;
   }
 }
 
-.header-menu {
-  li {
-    a {
-      color: black;
-      text-decoration: none;
-      font-weight: 600;
-    }
+.hidden {
+  display: inline-block !important;
+
+  @include responsive.desktop {
+    display: none !important; // hide on screens 960px and up
   }
+}
+
+.shown {
+  display: none !important;
+
+  @include responsive.mobile {
+    display: inline-block !important; // hide on screens 960px and up
+  }
+}
+
+.MuiDrawer-paper {
+  width: 100%;
+  max-width: 300px;
 }
