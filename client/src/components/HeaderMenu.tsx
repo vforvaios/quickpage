@@ -14,28 +14,36 @@ const AdapterLink = React.forwardRef<HTMLAnchorElement, RouterLinkProps>(
 const HeaderMenu = () => {
   return (
     <Box
-      m={2}
+      m={1}
       display="flex"
       justifyContent="space-between"
       alignItems="center"
     >
       <img src={logo} />
-      <nav>
+      <nav style={{ flexGrow: 1, maxWidth: 400 }}>
         <List
+          className="header-menu"
           component="ul"
-          style={{
+          sx={{
             margin: 0,
             padding: 0,
             listStyleType: "none",
             display: "flex",
             gap: "12px",
+            justifyContent: "center",
+            alignItems: "center",
+            textAlign: "center",
           }}
         >
-          <ListItem>
+          <ListItem sx={{ display: "block", textAlign: "center" }}>
             <AdapterLink to="/">Home</AdapterLink>
           </ListItem>
 
-          <ListItem>
+          <ListItem sx={{ display: "block", textAlign: "center" }}>
+            <AdapterLink to="/about">About Us</AdapterLink>
+          </ListItem>
+
+          <ListItem sx={{ display: "block", textAlign: "center" }}>
             <AdapterLink to="/pricing">Pricing</AdapterLink>
           </ListItem>
         </List>
