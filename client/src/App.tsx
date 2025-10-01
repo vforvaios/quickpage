@@ -5,7 +5,7 @@ import Home from "./components/Home";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Pricing from "./components/Pricing";
-
+import "./styles/tailwind.css";
 import "./styles/global.scss";
 import AboutUs from "./components/AboutUs";
 // import ProtectedRoute from "./components/ProtectedRoute";
