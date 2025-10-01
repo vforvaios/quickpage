@@ -19,7 +19,9 @@ const Menu = ({ mode }: IMenuProps) => {
   return (
     <nav
       style={{ flexGrow: 1, maxWidth: 400 }}
-      className={`${mode === "desktop" ? "shown" : ""}`}
+      className={` flex gap-6 items-center ${
+        mode === "desktop" ? "shown" : ""
+      }`}
     >
       <List
         className={`header-menu ${!mode ? "mobile" : ""}`}

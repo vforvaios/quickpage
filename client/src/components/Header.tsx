@@ -1,11 +1,10 @@
-import { Box } from "@mui/material";
 import HeaderMenu from "./HeaderMenu";
 
 const Header = () => {
   return (
-    <Box>
+    <header className="bg-white shadow-sm">
       <HeaderMenu />
-    </Box>
+    </header>
   );
 };
 

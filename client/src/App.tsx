@@ -8,6 +8,7 @@ import Pricing from "./components/Pricing";
 import "./styles/tailwind.css";
 import "./styles/global.scss";
 import AboutUs from "./components/AboutUs";
+import Contact from "./components/Contact";
 // import ProtectedRoute from "./components/ProtectedRoute";
 
 const App = () => {
@@ -21,6 +22,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/pricing" element={<Pricing />} />
+          <Route path="/contact" element={<Contact />} />
           {/* <Route path="*" element={<PageNotFound />} /> */}
         </Routes>
         <Footer />
