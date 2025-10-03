@@ -10,9 +10,12 @@ import "./styles/global.scss";
 import AboutUs from "./components/AboutUs";
 import Contact from "./components/Contact";
 import Register from "./components/Register";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Dashboard from "./components/Dashboard";
 // import ProtectedRoute from "./components/ProtectedRoute";
 
 const App = () => {
+  const userToken = null;
   return (
     <HelmetProvider>
       <Router>
@@ -25,6 +28,14 @@ const App = () => {
           <Route path="/about" element={<AboutUs />} />
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/contact" element={<Contact />} />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute isAllowed={userToken}>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
           {/* <Route path="*" element={<PageNotFound />} /> */}
         </Routes>
         <Footer />
