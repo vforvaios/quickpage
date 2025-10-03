@@ -1,125 +1,59 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable react-hooks/exhaustive-deps */
-import FormControl from "@mui/material/FormControl";
-import Input from "@mui/material/Input";
-import InputLabel from "@mui/material/InputLabel";
-import adminbg from "../assets/react.svg";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
-// import { setGeneralLoading } from "@models/actions/generalActions";
-// import { loginUser } from "@/models/actions/userActions";
-// import { token } from "@models/selectors/userSelectors";
-import { useState, useEffect } from "react";
-// import { useDispatch, useSelector } from "react-redux";
-// import { useNavigate } from "react-router-dom";
-
-const Login = () => {
-  const [username, setUsername] = useState("");
+export default function LoginPage() {
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [usernameError, setUsernameError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
-  // const dispatch = useDispatch();
-  // const navigate = useNavigate();
-  // const userToken = useSelector(token);
 
-  const submitLoginForm = () => {
-    if (username === "") {
-      setUsernameError("Πρέπει να συμπληρώσετε username!");
-    } else {
-      setUsernameError("");
-    }
-
-    if (password === "") {
-      setPasswordError("Πρέπει να συμπληρώσετε κωδικό!");
-    } else {
-      setPasswordError("");
-    }
-
-    if (username !== "" && password !== "") {
-      // const data = { username, password };
-      // dispatch(setGeneralLoading(true));
-      // dispatch(loginUser(data));
-    }
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log("Login:", { email, password });
+    // εδώ κάνεις call στο backend API π.χ. /api/login
   };
 
-  useEffect(() => {
-    const keyDownHandler = (event: any) => {
-      if (event.key === "Enter") {
-        event.preventDefault();
-
-        submitLoginForm();
-      }
-    };
-
-    document.addEventListener("keydown", keyDownHandler);
-
-    return () => {
-      document.removeEventListener("keydown", keyDownHandler);
-    };
-  });
-
-  // useEffect(() => {
-  //   userToken && navigate("/");
-  // }, [userToken, navigate]);
-
-  // useEffect(() => {
-  //   dispatch(setGeneralLoading(false));
-  // }, []);
-
   return (
-    <div
-      className="content login-page"
-      style={{ background: `url('${adminbg}')` }}
-    >
-      <div className="login-container">
-        <div className="login-icon-container">
-          <i className="icon-user-o" />
-        </div>
-        <div className="login-inputs">
-          <div className="login-input">
-            <FormControl fullWidth className="withicon">
-              <InputLabel htmlFor="login-username">ΟΝΟΜΑ ΧΡΗΣΤΗ</InputLabel>
-              <i className="icon-user-o" />
-              <Input
-                className="input"
-                fullWidth
-                id="login-username"
-                type="username"
-                value={username}
-                error={usernameError !== ""}
-                onChange={(e) => setUsername(e.target.value)}
-              />
-              {usernameError !== "" && (
-                <span className="error-span">{usernameError}</span>
-              )}
-            </FormControl>
+    <div className="min-h-screen flex px-6 items-center justify-center bg-gray-50">
+      <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
+        <h2 className="text-2xl font-bold mb-6 text-center text-indigo-600">
+          Σύνδεση
+        </h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block text-gray-700">Email</label>
+            <input
+              type="email"
+              className="w-full p-3 border rounded-lg"
+              placeholder="you@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
           </div>
-          <div className="login-input">
-            <FormControl fullWidth className="withicon">
-              <InputLabel htmlFor="login-password">ΚΩΔΙΚΟΣ ΧΡΗΣΤΗ</InputLabel>
-              <i className="icon-key" />
-              <Input
-                className="input"
-                fullWidth
-                id="login-password"
-                type="password"
-                value={password}
-                error={false}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              {passwordError !== "" && (
-                <span className="error-span">{passwordError}</span>
-              )}
-            </FormControl>
+          <div>
+            <label className="block text-gray-700">Κωδικός</label>
+            <input
+              type="password"
+              className="w-full p-3 border rounded-lg"
+              placeholder="••••••••"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
           </div>
-        </div>
-        <div className="actions center">
-          <button className="button lightblue" onClick={submitLoginForm}>
-            ΕΙΣΟΔΟΣ
+          <button
+            type="submit"
+            className="w-full bg-indigo-600 text-white p-3 rounded-lg hover:bg-indigo-700"
+          >
+            Σύνδεση
           </button>
-        </div>
+        </form>
+        <p className="mt-4 text-sm text-center text-gray-600">
+          Δεν έχεις λογαριασμό;{" "}
+          <Link to="/register" className="text-indigo-600 font-medium">
+            Εγγραφή
+          </Link>
+        </p>
       </div>
     </div>
   );
-};
-
-export default Login;
+}

@@ -3,6 +3,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 
 import React from "react";
 import Menu from "./Menu";
+import { Link } from "react-router-dom";
 
 const HeaderMenu = () => {
   const [open, setOpen] = React.useState<boolean>(false);
@@ -22,9 +23,16 @@ const HeaderMenu = () => {
           justifyContent="flex-end"
           alignItems="center"
         >
-          <button className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">
-            Login
-          </button>
+          <Link to="/login">
+            <button className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">
+              Login
+            </button>
+          </Link>
+          <Link to="/register">
+            <button className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">
+              Register
+            </button>
+          </Link>
           <MenuIcon className="hidden" onClick={toggleDrawer(true)} />
         </Box>
       </div>

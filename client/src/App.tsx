@@ -9,6 +9,7 @@ import "./styles/tailwind.css";
 import "./styles/global.scss";
 import AboutUs from "./components/AboutUs";
 import Contact from "./components/Contact";
+import Register from "./components/Register";
 // import ProtectedRoute from "./components/ProtectedRoute";
 
 const App = () => {
@@ -20,6 +21,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/contact" element={<Contact />} />
