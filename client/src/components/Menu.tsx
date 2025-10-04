@@ -13,9 +13,10 @@ const AdapterLink = React.forwardRef<HTMLAnchorElement, RouterLinkProps>(
 
 interface IMenuProps {
   mode?: string;
+  setOpen?: (arg: boolean) => void;
 }
 
-const Menu = ({ mode }: IMenuProps) => {
+const Menu = ({ mode, setOpen }: IMenuProps) => {
   return (
     <nav
       style={{ flexGrow: 1, maxWidth: 400 }}
@@ -38,19 +39,27 @@ const Menu = ({ mode }: IMenuProps) => {
         }}
       >
         <ListItem sx={{ display: "block", textAlign: "center" }}>
-          <AdapterLink to="/">Home</AdapterLink>
+          <AdapterLink to="/">
+            <span onClick={() => setOpen?.(false)}>Home</span>
+          </AdapterLink>
         </ListItem>
 
         <ListItem sx={{ display: "block", textAlign: "center" }}>
-          <AdapterLink to="/about">About Us</AdapterLink>
+          <AdapterLink to="/about">
+            <span onClick={() => setOpen?.(false)}>About Us</span>
+          </AdapterLink>
         </ListItem>
 
         <ListItem sx={{ display: "block", textAlign: "center" }}>
-          <AdapterLink to="/pricing">Pricing</AdapterLink>
+          <AdapterLink to="/pricing">
+            <span onClick={() => setOpen?.(false)}>Pricing</span>
+          </AdapterLink>
         </ListItem>
 
         <ListItem sx={{ display: "block", textAlign: "center" }}>
-          <AdapterLink to="/contact">Contact</AdapterLink>
+          <AdapterLink to="/contact">
+            <span onClick={() => setOpen?.(false)}>Contact</span>
+          </AdapterLink>
         </ListItem>
       </List>
     </nav>

@@ -37,7 +37,7 @@ const HeaderMenu = () => {
         </Box>
       </div>
       <Drawer open={open} onClose={toggleDrawer(false)}>
-        <Menu />
+        <Menu setOpen={setOpen} />
       </Drawer>
     </>
   );
