@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Outlet, Link } from "react-router-dom";
-
+import ClearIcon from "@mui/icons-material/Clear";
+import MenuIcon from "@mui/icons-material/Menu";
 export default function DashboardLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -37,7 +38,7 @@ export default function DashboardLayout() {
               className="text-white hover:text-gray-300"
               onClick={() => setSidebarOpen(false)}
             >
-              CLOSE
+              <ClearIcon />
             </button>
           )}
         </div>
@@ -70,9 +71,9 @@ export default function DashboardLayout() {
           {isMobile && (
             <button
               onClick={() => setSidebarOpen(true)}
-              className="text-indigo-700 hover:text-indigo-500 transition"
+              className=" transition"
             >
-              OPEN
+              <MenuIcon />
             </button>
           )}
           <h1 className="text-lg font-semibold">Πίνακας Ελέγχου</h1>

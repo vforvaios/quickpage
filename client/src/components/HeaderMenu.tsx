@@ -1,6 +1,6 @@
 import { Box, Drawer } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-
+import PersonIcon from "@mui/icons-material/Person";
 import React from "react";
 import Menu from "./Menu";
 import { Link } from "react-router-dom";
@@ -11,6 +11,8 @@ const HeaderMenu = () => {
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
   };
+
+  const userToken = {};
 
   return (
     <>
@@ -23,16 +25,24 @@ const HeaderMenu = () => {
           justifyContent="flex-end"
           alignItems="center"
         >
-          <Link to="/login">
-            <button className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">
-              Login
-            </button>
-          </Link>
-          <Link to="/register">
-            <button className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">
-              Register
-            </button>
-          </Link>
+          {!userToken ? (
+            <>
+              <Link to="/login">
+                <button className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">
+                  Login
+                </button>
+              </Link>
+              <Link to="/register">
+                <button className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">
+                  Register
+                </button>
+              </Link>
+            </>
+          ) : (
+            <Link target="_blank" to="/dashboard">
+              <PersonIcon />
+            </Link>
+          )}
           <MenuIcon className="hidden" onClick={toggleDrawer(true)} />
         </Box>
       </div>
