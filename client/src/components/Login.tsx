@@ -1,14 +1,21 @@
-import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 
-export default function LoginPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+type LoginFormData = {
+  email: string;
+  password: string;
+};
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("Login:", { email, password });
-    // εδώ κάνεις call στο backend API π.χ. /api/login
+export default function LoginPage() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<LoginFormData>();
+
+  const onSubmit = async (data: LoginFormData) => {
+    console.log("Login:", data);
+    // π.χ. await api.post("/api/login", data);
   };
 
   return (
@@ -17,36 +24,61 @@ export default function LoginPage() {
         <h2 className="text-2xl font-bold mb-6 text-center text-indigo-600">
           Σύνδεση
         </h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
+
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          {/* Email */}
           <div>
             <label className="block text-gray-700">Email</label>
             <input
               type="email"
-              className="w-full p-3 border rounded-lg"
               placeholder="you@example.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
+              className="w-full p-3 border rounded-lg"
+              {...register("email", {
+                required: "Το email είναι υποχρεωτικό",
+                pattern: {
+                  value: /^\S+@\S+$/i,
+                  message: "Μη έγκυρη διεύθυνση email",
+                },
+              })}
             />
+            {errors.email && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.email.message}
+              </p>
+            )}
           </div>
+
+          {/* Password */}
           <div>
             <label className="block text-gray-700">Κωδικός</label>
             <input
               type="password"
-              className="w-full p-3 border rounded-lg"
               placeholder="••••••••"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
+              className="w-full p-3 border rounded-lg"
+              {...register("password", {
+                required: "Ο κωδικός είναι υποχρεωτικός",
+                minLength: {
+                  value: 6,
+                  message: "Ο κωδικός πρέπει να έχει τουλάχιστον 6 χαρακτήρες",
+                },
+              })}
             />
+            {errors.password && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.password.message}
+              </p>
+            )}
           </div>
+
           <button
             type="submit"
-            className="w-full bg-indigo-600 text-white p-3 rounded-lg hover:bg-indigo-700"
+            disabled={isSubmitting}
+            className="w-full bg-indigo-600 text-white p-3 rounded-lg hover:bg-indigo-700 disabled:opacity-50"
           >
-            Σύνδεση
+            {isSubmitting ? "Σύνδεση..." : "Σύνδεση"}
           </button>
         </form>
+
         <p className="mt-4 text-sm text-center text-gray-600">
           Δεν έχεις λογαριασμό;{" "}
           <Link to="/register" className="text-indigo-600 font-medium">
