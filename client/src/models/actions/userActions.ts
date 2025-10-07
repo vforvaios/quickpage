@@ -1,6 +1,6 @@
 import { createAction } from "@reduxjs/toolkit";
 
-const loginUser = createAction("user/loginUser");
+const loginUser = createAction<any>("user/loginUser");
 const logoutUser = createAction("user/logoutUser");
 const setLoggedInUser = createAction("user/setLoggedInUser");
 const resetState = createAction("user/resetState");

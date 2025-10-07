@@ -14,9 +14,11 @@ import DashboardLayout from "@/layouts/DashboardLayout";
 import Dashboard from "@/components/Dashboard";
 import Profile from "@/components/Profile";
 import Settings from "@/components/Settings";
+import { useSelector } from "react-redux";
+import { token } from "./models/selectors/userSelectors";
 
 const App = () => {
-  const userToken = {};
+  const userToken = useSelector(token);
   return (
     <HelmetProvider>
       <Router>

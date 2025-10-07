@@ -19,7 +19,7 @@ app.use(
 // routes
 // const productsRoute = require("./routes/products");
 const loginRoute = require("./routes/login");
-// const registerRoute = require("./routes/register");
+const registerRoute = require("./routes/register");
 // const removeMasterMindUserRoute = require("./routes/removemasterminduser");
 // const productRoute = require("./routes/product");
 // const cartRoute = require("./routes/cart");
@@ -49,7 +49,7 @@ const loginRoute = require("./routes/login");
 // const checkMasterMindResultsRoute = require("./routes/checkmastermindresults");
 // app.use("/api/products", productsRoute);
 app.use("/api/login", loginRoute);
-// app.use("/api/register", registerRoute);
+app.use("/api/register", registerRoute);
 // app.use("/api/product", productRoute);
 // app.use("/api/cart", cartRoute);
 // app.use("/api/wishlist", wishlistResultsRoute);

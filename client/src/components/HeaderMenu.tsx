@@ -4,15 +4,16 @@ import PersonIcon from "@mui/icons-material/Person";
 import React from "react";
 import Menu from "./Menu";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { token } from "@/models/selectors/userSelectors";
 
 const HeaderMenu = () => {
+  const userToken = useSelector(token);
   const [open, setOpen] = React.useState<boolean>(false);
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
   };
-
-  const userToken = {};
 
   return (
     <>

@@ -1,17 +1,16 @@
 const Joi = require("joi");
 
 const LOGINSCHEMA = Joi.object().keys({
-  username: Joi.string().required(),
+  email: Joi.string().email().required(),
   password: Joi.string().required(),
 });
 
 const REGISTERSCHEMA = Joi.object().keys({
-  username: Joi.string().required(),
+  name: Joi.string().required(),
   email: Joi.string()
     .email({ tlds: { allow: false } })
     .required(),
   password: Joi.string().required(),
-  confirmPassword: Joi.string().required(),
 });
 
 const FORGOTPASSWORDSCHEMA = Joi.object().keys({
