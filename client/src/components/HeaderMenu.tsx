@@ -3,16 +3,24 @@ import MenuIcon from "@mui/icons-material/Menu";
 import PersonIcon from "@mui/icons-material/Person";
 import React from "react";
 import Menu from "./Menu";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { token } from "@/models/selectors/userSelectors";
+import { logoutUser } from "@/models/actions/userActions";
 
 const HeaderMenu = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const userToken = useSelector(token);
   const [open, setOpen] = React.useState<boolean>(false);
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
+  };
+
+  const logout = () => {
+    dispatch(logoutUser());
+    navigate("/");
   };
 
   return (
@@ -40,9 +48,17 @@ const HeaderMenu = () => {
               </Link>
             </>
           ) : (
-            <Link target="_blank" to="/dashboard">
-              <PersonIcon />
-            </Link>
+            <>
+              <Link target="_blank" to="/dashboard">
+                <PersonIcon />
+              </Link>
+              <button
+                onClick={logout}
+                className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700"
+              >
+                Logout
+              </button>
+            </>
           )}
           <MenuIcon className="hidden" onClick={toggleDrawer(true)} />
         </Box>

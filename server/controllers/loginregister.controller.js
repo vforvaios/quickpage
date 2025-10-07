@@ -13,7 +13,7 @@ require("dotenv").config();
 
 const loginUser = async (req, res, next) => {
   try {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
     const { value, error } = LOGINSCHEMA.validate(req.body);
 
     if (error) {
@@ -24,8 +24,8 @@ const loginUser = async (req, res, next) => {
     const [
       userInDb,
     ] = await db.query(
-      `SELECT username, password, isActive FROM users WHERE email=? AND isAdmin=?`,
-      [username, 0]
+      `SELECT name, email, password, isActive FROM TENANTS WHERE email=?`,
+      [email]
     );
 
     if (!userInDb?.[0]?.isActive) {
@@ -39,7 +39,7 @@ const loginUser = async (req, res, next) => {
     const userExists = await bcrypt.compare(password, userInDb[0].password);
 
     if (userExists) {
-      const user = userInDb[0].username;
+      const user = { id: userInDb[0].id, email: userInDb[0].email };
 
       jwt.sign(
         { user },
@@ -47,47 +47,11 @@ const loginUser = async (req, res, next) => {
         { expiresIn: "1h" },
         (err, token) => {
           res.status(200).json({
-            userLoggedIn: { username: user },
+            userLoggedIn: { ...user },
             token,
           });
         }
       );
-    } else {
-      res.sendStatus(401);
-    }
-  } catch (error) {
-    res.sendStatus(401);
-    next(error);
-  }
-};
-
-const loginUserAdmin = async (req, res, next) => {
-  try {
-    const { username, password } = req.body;
-    const { value, error } = LOGINSCHEMA.validate(req.body);
-
-    if (error) {
-      res.status(500).json({ error: config.messages.error });
-      return false;
-    }
-
-    const [
-      userInDb,
-    ] = await db.query(
-      `SELECT username, password FROM users WHERE username=? AND isAdmin=1`,
-      [username]
-    );
-
-    const userExists = await bcrypt.compare(password, userInDb[0].password);
-
-    if (userExists) {
-      const user = userInDb[0].username;
-      jwt.sign({ user }, process.env.API_SECRET_KEY || "", (err, token) => {
-        res.status(200).json({
-          userLoggedIn: { username: user },
-          token,
-        });
-      });
     } else {
       res.sendStatus(401);
     }
@@ -181,7 +145,6 @@ const changeUserPassword = async (req, res, next) => {
 
 module.exports = {
   loginUser,
-  loginUserAdmin,
   forgotUserPassword,
   changeUserPassword,
 };
