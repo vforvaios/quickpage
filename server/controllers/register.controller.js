@@ -5,7 +5,6 @@ const { REGISTERSCHEMA } = require("../schemas/loginregister.schema");
 
 const registerUser = async (req, res, next) => {
   try {
-    console.log("===================================");
     const { email, password, name } = req.body;
     const { value, error } = REGISTERSCHEMA.validate(req.body);
 
@@ -44,8 +43,13 @@ const registerUser = async (req, res, next) => {
     const salt = await bcrypt.genSalt(12);
     const hashPassword = await bcrypt.hash(password, salt);
 
-    const sql = `INSERT INTO TENANTS(name, password, email) VALUES (?,?,?)`;
-    const [result] = await db.query(sql, [name, hashPassword, email]);
+    const sql = `INSERT INTO TENANTS(name, password, email, template_id) VALUES (?,?,?)`;
+    const [result] = await db.query(sql, [
+      name,
+      hashPassword,
+      email,
+      config.defaultTemplateId,
+    ]);
 
     res.status(200).json({ message: "Η εγγραφή ολοκληρώθηκε επιτυχώς!" });
   } catch (error) {

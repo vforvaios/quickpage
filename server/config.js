@@ -13,15 +13,16 @@ const config = {
     // acquireTimeout: 100000,
     connectTimeout: 10000,
   },
+  defaultTemplateId: 1,
   catalogSorting: {
-    1: ' ASC ',
-    2: ' DESC ',
+    1: " ASC ",
+    2: " DESC ",
   },
   orderSorting: {
-    1: ' ASC ',
-    2: ' DESC ',
+    1: " ASC ",
+    2: " DESC ",
   },
-  imageUrl: 'http://tierra-api.vforvaios.gr/images/',
+  imageUrl: "http://tierra-api.vforvaios.gr/images/",
   recordsPerPage: 12,
   mail: {
     options: {
@@ -36,9 +37,9 @@ const config = {
     toTierraBoutiqueEmail: process.env.TIERRA_BOUTIQUE_EMAIL,
   },
   messages: {
-    error: 'Wrong data',
+    error: "Wrong data",
   },
-  newsletterCoupon: { code: 'NEWSLETTER10', discount: 10 },
+  newsletterCoupon: { code: "NEWSLETTER10", discount: 10 },
 };
 
 module.exports = config;
