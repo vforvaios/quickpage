@@ -1,37 +1,33 @@
 type MakeRequestType = {
   method: string;
   url: string;
+  token?: string | null;
   body?: any;
 };
 
-const configureHeaders = (resFormat: string, isFormData?: boolean) => {
-  if (resFormat === "json") {
-    if (!isFormData) {
-      return {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      };
-    } else {
-      return { Accept: "application/json" };
-    }
-  } else if (resFormat === "blob") {
+const configureHeaders = (token: string) => {
+  if (token) {
     return {
+      Accept: "application/json",
       "Content-Type": "application/json",
-      Accept: "text/csv",
-    };
-  } else {
-    return {
-      Accept: "application/pdf",
+      Authorization: `Bearer ${token}`,
     };
   }
+  return {
+    Accept: "application/json",
+    "Content-Type": "application/json",
+  };
 };
 
-const makeRequest = ({ method, url, body = null }: MakeRequestType) => {
-  const isFormData = body instanceof FormData;
-
-  return fetch(`${import.meta.env.VITE_API_URL}/api/${url}`, {
+const makeRequest = ({
+  method,
+  url,
+  token = null,
+  body = null,
+}: MakeRequestType) =>
+  fetch(`${import.meta.env.VITE_API_URL}/api/${url}`, {
     method,
-    headers: configureHeaders("json", isFormData),
+    headers: configureHeaders(token as any),
     ...(body && { body }),
   }).then(async (response) => {
     if (!response.ok) {
@@ -56,6 +52,5 @@ const makeRequest = ({ method, url, body = null }: MakeRequestType) => {
     }
     return data;
   });
-};
 
 export default makeRequest;

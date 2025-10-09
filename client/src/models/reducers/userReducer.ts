@@ -1,8 +1,13 @@
 import { createReducer } from "@reduxjs/toolkit";
 import { loginUser, logoutUser } from "../actions/userActions";
 
-const initialState = {
+type UserState = {
+  user: any;
+  tenant: any;
+};
+const initialState: UserState = {
   user: null,
+  tenant: null,
 };
 const userReducer = createReducer(initialState, (builder) => {
   builder
@@ -13,6 +18,7 @@ const userReducer = createReducer(initialState, (builder) => {
     .addCase(logoutUser, (state) => ({
       ...state,
       user: null,
+      tenant: null,
     }));
 });
 

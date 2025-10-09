@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { Outlet, Link } from "react-router-dom";
-import ClearIcon from "@mui/icons-material/Clear";
-import MenuIcon from "@mui/icons-material/Menu";
+import { Outlet } from "react-router-dom";
+import SideBar from "@/components/admin/SideBar";
+import Header from "@/components/admin/Header";
 export default function DashboardLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -22,39 +22,11 @@ export default function DashboardLayout() {
   return (
     <div className="flex min-h-screen bg-gray-50">
       {/* 🔹 Sidebar */}
-      <aside
-        className={`fixed inset-y-0 left-0 z-40 w-64 bg-indigo-700 text-white transform
-          ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}
-          transition-transform duration-300 ease-in-out
-          lg:static lg:inset-auto lg:translate-x-0
-        `}
-      >
-        <div className="p-6 flex items-center justify-between lg:justify-center">
-          <h2 className="text-xl font-bold">Dashboard</h2>
-
-          {/* Κουμπί κλεισίματος ΜΟΝΟ για mobile */}
-          {isMobile && (
-            <button
-              className="text-white hover:text-gray-300"
-              onClick={() => setSidebarOpen(false)}
-            >
-              <ClearIcon />
-            </button>
-          )}
-        </div>
-
-        <nav className="space-y-2 p-4">
-          <Link to="/dashboard" className="block hover:underline">
-            Αρχική
-          </Link>
-          <Link to="/dashboard/settings" className="block hover:underline">
-            Ρυθμίσεις
-          </Link>
-          <Link to="/dashboard/profile" className="block hover:underline">
-            Προφίλ
-          </Link>
-        </nav>
-      </aside>
+      <SideBar
+        sidebarOpen={sidebarOpen}
+        isMobile={isMobile}
+        setSidebarOpen={setSidebarOpen}
+      />
 
       {/* 🔹 Overlay για mobile */}
       {isMobile && sidebarOpen && (
@@ -64,21 +36,10 @@ export default function DashboardLayout() {
         />
       )}
 
-      {/* 🔹 Κύριο περιεχόμενο */}
       <div className="flex-1 flex flex-col">
-        <header className="p-4 bg-white shadow flex items-center justify-between">
-          {/* Κουμπί ανοίγματος ΜΟΝΟ σε mobile */}
-          {isMobile && (
-            <button
-              onClick={() => setSidebarOpen(true)}
-              className=" transition"
-            >
-              <MenuIcon />
-            </button>
-          )}
-          <h1 className="text-lg font-semibold">Πίνακας Ελέγχου</h1>
-        </header>
+        <Header isMobile={isMobile} setSidebarOpen={setSidebarOpen} />
 
+        {/* 🔹 Κύριο περιεχόμενο */}
         <main className="flex-1 p-6">
           <Outlet />
         </main>

@@ -49,7 +49,7 @@ const HeaderMenu = () => {
             </>
           ) : (
             <>
-              <Link target="_blank" to="/dashboard">
+              <Link to="/dashboard">
                 <PersonIcon />
               </Link>
               <button

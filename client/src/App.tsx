@@ -20,7 +20,6 @@ import { token } from "./models/selectors/userSelectors";
 const App = () => {
   const userToken = useSelector(token);
 
-  console.log(userToken);
   return (
     <HelmetProvider>
       <Router>
