@@ -94,11 +94,13 @@ app.get("/api", (req, res) => {
 
 // app.listen(process.env.PORT || 8000, "0.0.0.0");
 
-if (process.env.VERCEL) {
-  module.exports = serverless(app); // για Vercel serverless
-} else {
-  const port = process.env.PORT || 3000;
-  app.listen(port, () => {
-    console.log(`Server running locally on http://localhost:${port}`);
-  });
-}
+// if (process.env.VERCEL) {
+//   module.exports = serverless(app); // για Vercel serverless
+// } else {
+//   const port = process.env.PORT || 3000;
+//   app.listen(port, () => {
+//     console.log(`Server running locally on http://localhost:${port}`);
+//   });
+// }
+
+module.exports = app;
