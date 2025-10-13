@@ -1,8 +1,14 @@
 import makeRequest from "../makeRequest";
 
-export const getTenantInfo = (tenantId: number, token: string): Promise<any> =>
+export const getTenantTemplates = ({
+  token,
+  tenant_id,
+}: {
+  token: string;
+  tenant_id: string;
+}): Promise<any> =>
   makeRequest({
     method: "GET",
-    url: `tenant/${tenantId}`,
+    url: `admin/tenant/${tenant_id}/templates/`,
     token,
   });

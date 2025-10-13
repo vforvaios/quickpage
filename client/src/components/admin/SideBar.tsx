@@ -43,8 +43,8 @@ const SideBar = ({ sidebarOpen, isMobile, setSidebarOpen }: SideBarProps) => {
         <Link to="/dashboard" className="block hover:underline">
           Αρχική
         </Link>
-        <Link to="/dashboard/settings" className="block hover:underline">
-          Ρυθμίσεις
+        <Link to="/dashboard/templates" className="block hover:underline">
+          Templates
         </Link>
         <Link to="/dashboard/profile" className="block hover:underline">
           Προφίλ

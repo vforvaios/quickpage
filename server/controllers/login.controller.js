@@ -21,10 +21,9 @@ const loginUser = async (req, res, next) => {
       return false;
     }
 
-    const [
-      userInDb,
-    ] = await db.query(
-      `SELECT name, email, password, isActive FROM TENANTS WHERE email=?`,
+    const [userInDb] = await db.query(
+      `SELECT name, email, password, isActive, tenant_id
+       FROM TENANTS WHERE email=?`,
       [email]
     );
 
@@ -39,7 +38,10 @@ const loginUser = async (req, res, next) => {
     const userExists = await bcrypt.compare(password, userInDb[0].password);
 
     if (userExists) {
-      const user = { id: userInDb[0].id, email: userInDb[0].email };
+      const user = {
+        tenant_id: userInDb[0].tenant_id,
+        email: userInDb[0].email,
+      };
 
       jwt.sign(
         { user },

@@ -30,7 +30,7 @@
     "nodemailer": "^6.9.7",
     "nodemon": "^2.0.22",
     "sanitize-html": "^2.13.0",
-    "uuid": "^8.3.2"
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
     "babel-eslint": "10.1.0",

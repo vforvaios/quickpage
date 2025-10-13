@@ -1,6 +1,7 @@
 const bcrypt = require("bcrypt");
 const config = require("../config");
 const db = require("../services/db");
+const { v4: uuidv4 } = require("uuid");
 const { REGISTERSCHEMA } = require("../schemas/loginregister.schema");
 
 const registerUser = async (req, res, next) => {
@@ -43,12 +44,13 @@ const registerUser = async (req, res, next) => {
     const salt = await bcrypt.genSalt(12);
     const hashPassword = await bcrypt.hash(password, salt);
 
-    const sql = `INSERT INTO TENANTS(name, password, email, template_id) VALUES (?,?,?)`;
+    const sql = `INSERT INTO TENANTS(name, password, email, template_id, tenant_id) VALUES (?,?,?,?)`;
     const [result] = await db.query(sql, [
       name,
       hashPassword,
       email,
       config.defaultTemplateId,
+      uuidv4(),
     ]);
 
     res.status(200).json({ message: "Η εγγραφή ολοκληρώθηκε επιτυχώς!" });

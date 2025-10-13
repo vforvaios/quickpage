@@ -8,6 +8,7 @@ const verifyToken = (req, res, next) => {
     const brToken = bearerToken.split(" ")[1];
 
     jwt.verify(brToken, process.env.API_SECRET_KEY || "", (err, authData) => {
+      console.log("err=", err);
       if (err) {
         // unauthorized
         res
@@ -18,6 +19,7 @@ const verifyToken = (req, res, next) => {
         // set the token
         req.token = brToken;
         req.authData = authData;
+        req.tenant_id = authData.user?.tenant_id;
         next();
       }
     });

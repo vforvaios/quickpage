@@ -13,9 +13,9 @@ import PublicLayout from "@/layouts/PublicLayout";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import Dashboard from "@/components/Dashboard";
 import Profile from "@/components/Profile";
-import Settings from "@/components/Settings";
 import { useSelector } from "react-redux";
 import { token } from "./models/selectors/userSelectors";
+import Templates from "./components/admin/Templates";
 
 const App = () => {
   const userToken = useSelector(token);
@@ -44,7 +44,7 @@ const App = () => {
             }
           >
             <Route index element={<Dashboard />} />
-            <Route path="settings" element={<Settings />} />
+            <Route path="templates" element={<Templates />} />
             <Route path="profile" element={<Profile />} />
           </Route>
         </Routes>

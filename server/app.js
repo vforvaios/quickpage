@@ -1,7 +1,6 @@
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
-const serverless = require("serverless-http");
 
 const app = express();
 
@@ -20,6 +19,7 @@ app.use(
 // const productsRoute = require("./routes/products");
 const loginRoute = require("./routes/login");
 const registerRoute = require("./routes/register");
+const adminRoute = require("./routes/tenant-admin");
 // const removeMasterMindUserRoute = require("./routes/removemasterminduser");
 // const productRoute = require("./routes/product");
 // const cartRoute = require("./routes/cart");
@@ -50,6 +50,7 @@ const registerRoute = require("./routes/register");
 // app.use("/api/products", productsRoute);
 app.use("/api/login", loginRoute);
 app.use("/api/register", registerRoute);
+app.use("/api/admin", adminRoute);
 // app.use("/api/product", productRoute);
 // app.use("/api/cart", cartRoute);
 // app.use("/api/wishlist", wishlistResultsRoute);
