@@ -3,7 +3,9 @@ import { Link } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { ToastContainer, toast } from "react-toastify";
 import { registerUserReq } from "@/queries";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
 type RegisterFormData = {
   name: string;
@@ -12,6 +14,8 @@ type RegisterFormData = {
 };
 
 export default function RegisterPage() {
+  const [showPassword, setShowPassword] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -38,6 +42,10 @@ export default function RegisterPage() {
     } catch (error) {
       toast(error?.toString() || "Σφάλμα κατά την εγγραφή");
     }
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   useEffect(() => {
@@ -111,19 +119,32 @@ export default function RegisterPage() {
             {/* Password */}
             <div>
               <label className="block text-gray-700">Κωδικός</label>
-              <input
-                type="password"
-                placeholder="••••••••"
-                className="w-full p-3 border rounded-lg"
-                {...register("password", {
-                  required: "Ο κωδικός είναι υποχρεωτικός",
-                  minLength: {
-                    value: 6,
-                    message:
-                      "Ο κωδικός πρέπει να έχει τουλάχιστον 6 χαρακτήρες",
-                  },
-                })}
-              />
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="••••••••"
+                  className="w-full p-3 border rounded-lg pr-10"
+                  {...register("password", {
+                    required: "Ο κωδικός είναι υποχρεωτικός",
+                    minLength: {
+                      value: 6,
+                      message:
+                        "Ο κωδικός πρέπει να έχει τουλάχιστον 6 χαρακτήρες",
+                    },
+                  })}
+                />
+                <button
+                  type="button"
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                  onClick={togglePasswordVisibility}
+                >
+                  {showPassword ? (
+                    <VisibilityOffIcon className="h-5 w-5 text-black" />
+                  ) : (
+                    <VisibilityIcon className="h-5 w-5 text-black" />
+                  )}
+                </button>
+              </div>
               {errors.password && (
                 <p className="text-red-500 text-sm mt-1">
                   {errors.password.message}
