@@ -1,21 +1,80 @@
-interface HeaderProps {
-  isMobile: boolean;
-  setSidebarOpen: (arg: boolean) => void;
-}
+import AppBar from "@mui/material/AppBar";
+import Drawer from "@mui/material/Drawer";
+import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import { Link, useNavigate } from "react-router-dom";
+// import { useDispatch } from "react-redux";
+import withToggle from "./withToggle";
 
-const Header = ({ isMobile, setSidebarOpen }: HeaderProps) => {
+const Header = ({ toggleValue, setToggleValue }: any) => {
+  // const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   return (
-    <header className="p-4 bg-white shadow flex items-center justify-between">
-      {/* Κουμπί ανοίγματος ΜΟΝΟ σε mobile */}
-      {isMobile && (
-        <button onClick={() => setSidebarOpen(true)} className=" transition">
-          <MenuIcon />
-        </button>
-      )}
-      <h1 className="text-lg font-semibold">Πίνακας Ελέγχου</h1>
-    </header>
+    <>
+      <AppBar position="static">
+        <Toolbar className="header-toolbar">
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            className="burger-menu"
+            onClick={setToggleValue("left", true)}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" className="header-user-name">
+            Καλωσήρθες
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <Drawer
+        anchor="left"
+        open={toggleValue.left}
+        onClose={setToggleValue("left", false)}
+      >
+        <ul className="admin-menu">
+          <li>
+            <Link to="/" className="block hover:underline back-to-game">
+              Πίσω στο παιχνίδι
+            </Link>
+          </li>
+          <li>
+            <Link
+              onClick={setToggleValue("left", false)}
+              to="/dashboard"
+              className="block hover:underline"
+            >
+              Αρχική
+            </Link>
+          </li>
+          <li>
+            <Link
+              onClick={setToggleValue("left", false)}
+              to="/dashboard/questions"
+              className="block hover:underline"
+            >
+              Ερωτήσεις
+            </Link>
+          </li>
+          <li>
+            <button
+              onClick={() => {
+                // dispatch(logoutUser());
+                navigate("/");
+              }}
+              className="block hover:underline"
+            >
+              Εξοδος
+            </button>
+          </li>
+        </ul>
+      </Drawer>
+    </>
   );
 };
 
-export default Header;
+const HeaderWithToggle = withToggle(Header);
+export default HeaderWithToggle;
