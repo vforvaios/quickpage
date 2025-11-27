@@ -15,3 +15,10 @@ export const loginUserReq = (obj: any): Promise<any> => {
     body: JSON.stringify(obj),
   });
 };
+
+export const getTenant = (tenant: string): Promise<any> => {
+  return makeRequest({
+    method: "GET",
+    url: `tenants/${tenant}`,
+  });
+};

@@ -9,13 +9,12 @@ import { parse } from "tldts";
 const App = () => {
   const subDomain = parse(window.location.hostname).subdomain;
 
-  console.log(subDomain);
   return (
     <HelmetProvider>
       <Router>
         <Routes>
           <Route element={<PublicLayout />}>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home tenant={subDomain} />} />
           </Route>
         </Routes>
       </Router>

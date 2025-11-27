@@ -1,38 +1,45 @@
 type MakeRequestType = {
+  token?: any;
   method: string;
   url: string;
-  token?: string | null;
   body?: any;
+  responseFormat?: any;
 };
 
-const configureHeaders = (token: string) => {
-  if (token) {
+const configureHeaders = (resFormat: string, token: any) => {
+  if (resFormat === "json") {
     return {
       Accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
+      ...(token && { Authorization: `Bearer ${token}` }),
+    };
+  } else if (resFormat === "blob") {
+    return {
+      "Content-Type": "application/json",
+      Accept: "text/csv",
+    };
+  } else {
+    return {
+      Accept: "application/pdf",
     };
   }
-  return {
-    Accept: "application/json",
-    "Content-Type": "application/json",
-  };
 };
 
 const makeRequest = ({
+  token,
   method,
   url,
-  token = null,
   body = null,
-}: MakeRequestType) =>
-  fetch(`${import.meta.env.VITE_API_URL}/api/${url}`, {
+  responseFormat = "json",
+}: MakeRequestType) => {
+  return fetch(`${import.meta.env.VITE_API_URL}/${url}`, {
     method,
-    headers: configureHeaders(token as any),
+    headers: configureHeaders(responseFormat, token),
     ...(body && { body }),
   }).then(async (response) => {
     if (!response.ok) {
       return response.json().then((response) => {
-        throw response?.error || response?.error?.name || response?.message;
+        throw response?.error || response?.message;
       });
     }
 
@@ -40,17 +47,20 @@ const makeRequest = ({
       return null;
     }
 
-    const data = await response.json();
-
-    if (data?.error) {
-      throw (
-        data.error ||
-        data.error.name ||
-        data.error.message ||
-        "Unknown logical error"
-      );
+    switch (responseFormat) {
+      case "blob":
+        return response.blob();
+      default: {
+        const data = await response.json();
+        if (data?.error) {
+          throw (
+            data.error.name || data.error.message || "Unknown logical error"
+          );
+        }
+        return data;
+      }
     }
-    return data;
   });
+};
 
 export default makeRequest;

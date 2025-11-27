@@ -2,7 +2,13 @@ const db = require("../services/db");
 
 const getWholeTenant = async (req, res, next) => {
   try {
-    const tenantId = req.params.id;
+    const tenantName = req.params.id;
+
+    const [
+      tenantId,
+    ] = await db.query(`SELECT tenant_id FROM TENANTS WHERE name=?`, [
+      tenantName,
+    ]);
     const [rows] = await db.query(
       `SELECT 
         t.id AS tenant_id, 
@@ -16,7 +22,7 @@ const getWholeTenant = async (req, res, next) => {
        JOIN TEMPLATES_PAGE_SECTIONS tps ON tps.template_id = t.template_id 
        JOIN PAGE_SECTIONS ps ON ps.id = tps.page_section_id 
        WHERE t.tenant_id = ? `,
-      [tenantId]
+      [tenantId[0].tenant_id]
     );
     if (rows.length === 0) {
       return res.status(404).json({ error: "Tenant not found" });
