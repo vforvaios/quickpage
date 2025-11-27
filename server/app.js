@@ -20,6 +20,7 @@ app.use(
 const loginRoute = require("./routes/login");
 const registerRoute = require("./routes/register");
 const adminRoute = require("./routes/tenant-admin");
+const tenantsRoute = require("./routes/tenants");
 // const removeMasterMindUserRoute = require("./routes/removemasterminduser");
 // const productRoute = require("./routes/product");
 // const cartRoute = require("./routes/cart");
@@ -51,6 +52,7 @@ const adminRoute = require("./routes/tenant-admin");
 app.use("/api/login", loginRoute);
 app.use("/api/register", registerRoute);
 app.use("/api/admin", adminRoute);
+app.use("/api/tenants", tenantsRoute);
 // app.use("/api/product", productRoute);
 // app.use("/api/cart", cartRoute);
 // app.use("/api/wishlist", wishlistResultsRoute);
