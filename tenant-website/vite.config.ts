@@ -26,4 +26,8 @@ export default defineConfig({
       "@": path.resolve(process.cwd(), "src"), // ✅ works locally & on Vercel
     },
   },
+  server: {
+    host: true, // επιτρέπει εξωτερικά hosts
+    allowedHosts: ["test-1.domain.gr", "test-2.domain.gr"],
+  },
 });

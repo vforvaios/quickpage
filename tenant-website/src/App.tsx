@@ -4,8 +4,12 @@ import Home from "@/components/Home";
 import "@/styles/tailwind.css";
 import "@/styles/global.scss";
 import PublicLayout from "@/layouts/PublicLayout";
+import { parse } from "tldts";
 
 const App = () => {
+  const subDomain = parse(window.location.hostname).subdomain;
+
+  console.log(subDomain);
   return (
     <HelmetProvider>
       <Router>
