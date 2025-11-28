@@ -5,6 +5,7 @@ import "@/styles/tailwind.css";
 import "@/styles/global.scss";
 import PublicLayout from "@/layouts/PublicLayout";
 import { parse } from "tldts";
+import ErrorBoundary from "./components/ErrorBoundary";
 
 const App = () => {
   const subDomain = parse(window.location.hostname).subdomain;
@@ -12,11 +13,13 @@ const App = () => {
   return (
     <HelmetProvider>
       <Router>
-        <Routes>
-          <Route element={<PublicLayout />}>
-            <Route path="/" element={<Home tenant={subDomain} />} />
-          </Route>
-        </Routes>
+        <ErrorBoundary>
+          <Routes>
+            <Route element={<PublicLayout />}>
+              <Route path="/" element={<Home tenant={subDomain} />} />
+            </Route>
+          </Routes>
+        </ErrorBoundary>
       </Router>
     </HelmetProvider>
   );
