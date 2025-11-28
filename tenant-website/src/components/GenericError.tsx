@@ -30,7 +30,7 @@ export default function GenericError({
         role="alert"
         aria-live="polite"
       >
-        <div className="flex items-start gap-4">
+        <div className="flex flex-col md:flex-row items-center md:items-start gap-4">
           <div className="flex-shrink-0">
             {/* simple SVG icon */}
             <div className="w-14 h-14 rounded-full bg-red-50 flex items-center justify-center">
@@ -50,11 +50,15 @@ export default function GenericError({
             </div>
           </div>
 
-          <div className="flex-1">
-            <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
-            <p className="mt-2 text-sm text-gray-600">{message}</p>
+          <div className="flex-1 items-center">
+            <h3 className="text-lg text-center md:text-left font-semibold text-gray-900">
+              {title}
+            </h3>
+            <p className="mt-2 text-sm text-center md:text-left text-gray-600">
+              {message}
+            </p>
 
-            <div className="mt-4 flex flex-wrap gap-3">
+            <div className="mt-4 flex gap-3 flex-col md:flex-row">
               {onRetry && (
                 <button
                   onClick={onRetry}
@@ -99,7 +103,7 @@ export default function GenericError({
           </div>
         </div>
 
-        <p className="mt-4 text-xs text-gray-400">
+        <p className="mt-4 text-xs text-gray-400 text-center md:text-left">
           Μπορείτε να ανανεώσετε τη σελίδα ή να επιστρέψετε στην αρχική.
         </p>
       </motion.div>
