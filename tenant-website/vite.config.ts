@@ -28,6 +28,10 @@ export default defineConfig({
   },
   server: {
     host: true, // επιτρέπει εξωτερικά hosts
-    allowedHosts: ["test-1.domain.gr", "test-2.domain.gr"],
+    allowedHosts: [
+      "test-1.domain.gr",
+      "test-2.domain.gr",
+      "quickpage-orxo.domain.gr",
+    ],
   },
 });

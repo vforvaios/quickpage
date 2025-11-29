@@ -16,6 +16,8 @@ app.use(
       "http://localhost:5173",
       "http://test-1.domain.gr:5173",
       "http://test-2.domain.gr:5173",
+      "http://quickpage-orxo.vercel.app",
+      "http://quickpage-orxo.domain.gr:5173",
     ],
   })
 );
