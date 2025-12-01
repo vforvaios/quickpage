@@ -26,7 +26,6 @@ const Home = ({ tenant }: any) => {
     return <Loader variant="fullscreen" />;
   }
 
-  console.log(tenantData);
   return <Template tenant={tenantData} />;
 };
 

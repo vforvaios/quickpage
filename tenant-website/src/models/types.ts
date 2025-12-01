@@ -6,9 +6,11 @@ export type Section = {
 export type Tenant = {
   tenantId: number;
   tenantSlug: string;
+  tenantName: string;
   template: {
     id: number;
     isActive: number;
+    variant: string;
   };
   sections: Array<Section>;
 };
