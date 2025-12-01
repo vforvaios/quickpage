@@ -8,7 +8,6 @@ import type { Tenant } from "@/models/types";
 const Home = ({ tenant }: any) => {
   const {
     data: tenantData,
-    // isSuccess,
     isFetching,
     isError,
   } = useQuery<Tenant | undefined>({

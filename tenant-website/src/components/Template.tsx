@@ -6,8 +6,11 @@ interface ITemplateProps {
 }
 
 const Template = ({ tenant }: ITemplateProps) => {
+  const wrapperClassName =
+    tenant?.template?.variant === "simple" ? "max-w-[1024px] m-auto px-4" : "";
+
   return (
-    <div>
+    <div className={wrapperClassName}>
       <div>Template {tenant?.tenantName}</div>
 
       {tenant?.sections?.map((sec) => {
