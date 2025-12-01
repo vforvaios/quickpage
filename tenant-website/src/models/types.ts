@@ -14,3 +14,5 @@ export type Tenant = {
   };
   sections: Array<Section>;
 };
+
+export type SectionVariant = "simple" | "";
