@@ -1,5 +1,4 @@
 @use "./menu.scss";
-@use "./buttons.scss";
 @use "./responsive.scss";
 
 body {
@@ -8,25 +7,4 @@ body {
     font-family: "Open Sans", sans-serif !important;
     box-sizing: border-box;
   }
-}
-
-.hidden {
-  display: inline-block !important;
-
-  @include responsive.desktop {
-    display: none !important; // hide on screens 960px and up
-  }
-}
-
-.shown {
-  display: none !important;
-
-  @include responsive.mobile {
-    display: inline-block !important; // hide on screens 960px and up
-  }
-}
-
-.MuiDrawer-paper {
-  width: 100%;
-  max-width: 300px;
 }
