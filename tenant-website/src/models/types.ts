@@ -1,6 +1,11 @@
 export type Section = {
   id: number;
   name: string;
+  menu: {
+    label: string;
+    slug: string;
+    isActive: number;
+  };
 };
 
 export type Tenant = {
