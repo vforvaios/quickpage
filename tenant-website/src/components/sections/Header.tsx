@@ -1,17 +1,24 @@
 import { useState } from "react";
 import headerVariants from "../variants/headerVariants";
+import type { Section, Tenant } from "@/models/types";
 
 interface IHeaderProps {
   variant?: keyof typeof headerVariants;
+  tenant: Tenant | undefined;
 }
 
-const Header = ({ variant = "simple" }: IHeaderProps) => {
+const Header = ({ variant = "simple", tenant }: IHeaderProps) => {
   const styles = headerVariants[variant];
+
+  const menuOptions = tenant?.sections?.map((section: Section) => ({
+    label: section?.menu?.label,
+    slug: section?.menu?.slug,
+  }));
 
   const [open, setOpen] = useState(false);
 
   return (
-    <header className={`w-full shadow-sm sticky top-0 z-50 ${styles.bg}`}>
+    <header className={`w-full shadow-sm  z-50 ${styles.bg}`}>
       <div className="max-w-6xl mx-auto flex items-center justify-between py-4 px-6">
         {/* Logo */}
         <div className={`text-xl font-bold ${styles.text}`}>MyWebsite</div>
@@ -21,21 +28,16 @@ const Header = ({ variant = "simple" }: IHeaderProps) => {
           <ul
             className={`flex items-center space-x-6 font-medium ${styles.text}`}
           >
-            <li>
-              <a href="#aboutus" className={`transition ${styles.hover}`}>
-                About Us
-              </a>
-            </li>
-            <li>
-              <a href="#services" className={`transition ${styles.hover}`}>
-                Services
-              </a>
-            </li>
-            <li>
-              <a href="#contact" className={`transition ${styles.hover}`}>
-                Contact
-              </a>
-            </li>
+            {menuOptions?.map((menuOption) => (
+              <li key={menuOption.slug}>
+                <a
+                  href={`#${menuOption.slug}`}
+                  className={`transition ${styles.hover}`}
+                >
+                  {menuOption.label}
+                </a>
+              </li>
+            ))}
           </ul>
         </nav>
 
@@ -60,21 +62,16 @@ const Header = ({ variant = "simple" }: IHeaderProps) => {
         }`}
       >
         <ul className="flex flex-col space-y-3 text-lg">
-          <li>
-            <a href="#aboutus" className={`block transition ${styles.hover}`}>
-              About Us
-            </a>
-          </li>
-          <li>
-            <a href="#services" className={`block transition ${styles.hover}`}>
-              Services
-            </a>
-          </li>
-          <li>
-            <a href="#contact" className={`block transition ${styles.hover}`}>
-              Contact
-            </a>
-          </li>
+          {menuOptions?.map((menuOption) => (
+            <li key={menuOption.slug}>
+              <a
+                href={`#${menuOption.slug}`}
+                className={`block transition ${styles.hover}`}
+              >
+                {menuOption.label}
+              </a>
+            </li>
+          ))}
         </ul>
       </div>
     </header>

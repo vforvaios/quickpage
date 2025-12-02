@@ -5,7 +5,7 @@ interface IHeroProps {
 }
 
 const Hero = ({ variant }: IHeroProps) => {
-  return <div>Hero {variant}</div>;
+  return <div className="h-[600px] bg-red-300">Hero {variant}</div>;
 };
 
 export default Hero;
