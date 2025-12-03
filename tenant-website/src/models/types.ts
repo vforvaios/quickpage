@@ -1,6 +1,7 @@
 export type Section = {
   id: number;
   name: string;
+  orderId: number;
   menu: {
     label: string;
     slug: string;

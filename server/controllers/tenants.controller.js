@@ -22,6 +22,7 @@ const getWholeTenant = async (req, res, next) => {
           ps.name AS section_name,
 
           ttps.label AS menu_label,
+          ttps.orderId AS orderId,
           ttps.slug AS menu_slug,
           ttps.isActive AS menu_is_active
 
@@ -41,6 +42,7 @@ const getWholeTenant = async (req, res, next) => {
           AND ttps.template_page_section_id = tps.id
 
       WHERE t.tenant_id = ? AND ttps.isActive = ?
+      ORDER BY orderId ASC
       `,
       [tenantId[0].tenant_id, 1]
     );
@@ -62,7 +64,7 @@ const getWholeTenant = async (req, res, next) => {
       sections: rows.map((r) => ({
         id: r.section_id,
         name: r.section_name,
-        order: r.section_order,
+        order: r.orderId,
         menu: {
           label: r.menu_label,
           slug: r.menu_slug,
