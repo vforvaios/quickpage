@@ -22,3 +22,16 @@ export const getTenant = (tenant: string): Promise<any> => {
     url: `tenants/${tenant}`,
   });
 };
+
+export const getHeroDetails = ({
+  tenantId,
+  sectionId,
+}: {
+  tenantId: number;
+  sectionId: number;
+}): Promise<any> => {
+  return makeRequest({
+    method: "GET",
+    url: `tenants/${tenantId}/section/${sectionId}/details`,
+  });
+};

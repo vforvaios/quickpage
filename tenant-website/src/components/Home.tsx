@@ -10,6 +10,7 @@ const Home = ({ tenant }: any) => {
     data: tenantData,
     isFetching,
     isError,
+    error,
   } = useQuery<Tenant | undefined>({
     queryKey: ["get-tenant-info"],
     queryFn: () => getTenant(tenant),
@@ -18,7 +19,7 @@ const Home = ({ tenant }: any) => {
   });
 
   if (isError) {
-    return <GenericError />;
+    return <GenericError error={error.toString()} />;
   }
 
   if (isFetching) {
