@@ -79,6 +79,44 @@ const getWholeTenant = async (req, res, next) => {
   }
 };
 
+const getTenantSectionDetails = async (req, res, next) => {
+  try {
+    const { tenantId, sectionId } = req.params;
+
+    const [tenantTemplate] = await db.query(
+      `
+      SELECT id, template_id
+      FROM TENANTS
+      WHERE tenant_id=?
+      `,
+      [tenantId]
+    );
+
+    const [section] = await db.query(
+      `
+      SELECT id
+      FROM TEMPLATES_PAGE_SECTIONS
+      WHERE page_section_id=? AND template_id=?
+      `,
+      [sectionId, tenantTemplate[0].template_id]
+    );
+
+    const [sectionDetails] = await db.query(
+      `
+      SELECT richText, singlePhoto, link, photos
+      FROM TENANTS_TEMPLATES_PAGE_SECTIONS
+      WHERE tenant_id=? AND template_page_section_id=?
+      `,
+      [tenantTemplate[0].id, section[0].id]
+    );
+    res.status(200).json({ sectionDetails });
+  } catch (error) {
+    next(error);
+    console.log(error);
+  }
+};
+
 module.exports = {
   getWholeTenant,
+  getTenantSectionDetails,
 };

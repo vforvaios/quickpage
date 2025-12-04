@@ -29,7 +29,7 @@ const Template = ({ tenant }: ITemplateProps) => {
           return (
             <div key={sec.name} id={sec?.menu?.slug} className="scroll-mt-24">
               <Component
-                tenantId={tenant.tenantId}
+                tenantId={tenant.tenantSlug}
                 sectionId={sec.id}
                 variant={tenant?.template?.variant}
               />

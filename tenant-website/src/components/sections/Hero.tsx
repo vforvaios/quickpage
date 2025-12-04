@@ -11,14 +11,13 @@ interface IHeroProps {
 }
 
 const Hero = ({ variant, sectionId, tenantId }: IHeroProps) => {
+  console.log(variant);
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["get-hero-banner"],
     queryFn: () => getHeroDetails({ sectionId, tenantId }),
     retry: false,
     refetchOnWindowFocus: false,
   });
-
-  console.log(data);
 
   if (isLoading) {
     return <Loader />;
@@ -28,7 +27,13 @@ const Hero = ({ variant, sectionId, tenantId }: IHeroProps) => {
     return <GenericError error={error.toString()} />;
   }
 
-  return <div className="h-[600px] bg-red-300">Hero {variant}</div>;
+  return (
+    <div className="h-[600px] bg-red-300">
+      <div
+        dangerouslySetInnerHTML={{ __html: data.sectionDetails[0].richText }}
+      />
+    </div>
+  );
 };
 
 export default Hero;
