@@ -1,19 +1,20 @@
-import type { SectionVariant } from "@/models/types";
 import { getHeroDetails } from "@/queries";
 import { useQuery } from "@tanstack/react-query";
 import Loader from "../Loader";
 import GenericError from "../GenericError";
+import aboutUsVariants from "../variants/aboutUsVariants";
 
-interface IHeroProps {
-  variant: SectionVariant;
+interface IAboutUs {
+  variant: keyof typeof aboutUsVariants;
   sectionId: number;
   tenantId: number;
 }
 
-const Hero = ({ variant, sectionId, tenantId }: IHeroProps) => {
-  console.log(variant);
+const AboutUs = ({ variant, sectionId, tenantId }: IAboutUs) => {
+  const styles = aboutUsVariants[variant];
+  console.log(styles);
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["get-hero-banner"],
+    queryKey: ["get-about-us"],
     queryFn: () => getHeroDetails({ sectionId, tenantId }),
     retry: false,
     refetchOnWindowFocus: false,
@@ -29,14 +30,11 @@ const Hero = ({ variant, sectionId, tenantId }: IHeroProps) => {
 
   return (
     <div className="mb-[30px]">
-      <a href={data.sectionDetails[0].link} target="_blank">
-        <img
-          alt={data.sectionDetails[0].link}
-          src={data.sectionDetails[0].singlePhoto}
-        />
-      </a>
+      <div
+        dangerouslySetInnerHTML={{ __html: data.sectionDetails[0].richText }}
+      />
     </div>
   );
 };
 
-export default Hero;
+export default AboutUs;
