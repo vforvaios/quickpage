@@ -10,10 +10,12 @@ interface IHeaderProps {
 const Header = ({ variant = "simple", tenant }: IHeaderProps) => {
   const styles = headerVariants[variant];
 
-  const menuOptions = tenant?.sections?.map((section: Section) => ({
-    label: section?.menu?.label,
-    slug: section?.menu?.slug,
-  }));
+  const menuOptions = tenant?.sections
+    ?.filter((s) => s.name !== "HEADER" && s.name !== "HEROBANNERS")
+    .map((section: Section) => ({
+      label: section?.menu?.label,
+      slug: section?.menu?.slug,
+    }));
 
   const [open, setOpen] = useState(false);
 
