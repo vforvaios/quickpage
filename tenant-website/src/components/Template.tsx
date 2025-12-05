@@ -13,7 +13,6 @@ const Template = ({ tenant }: ITemplateProps) => {
 
   return (
     <div className={wrapperClassName} style={{ scrollBehavior: "smooth" }}>
-      <div>Template {tenant?.tenantName}</div>
       <Header
         variant={tenant?.template?.variant as keyof typeof headerVariants}
         tenant={tenant}

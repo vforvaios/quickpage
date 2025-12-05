@@ -28,10 +28,13 @@ const Hero = ({ variant, sectionId, tenantId }: IHeroProps) => {
   }
 
   return (
-    <div className="h-[600px] bg-red-300">
-      <div
-        dangerouslySetInnerHTML={{ __html: data.sectionDetails[0].richText }}
-      />
+    <div>
+      <a href={data.sectionDetails[0].link} target="_blank">
+        <img
+          alt={data.sectionDetails[0].link}
+          src={data.sectionDetails[0].singlePhoto}
+        />
+      </a>
     </div>
   );
 };
