@@ -3,6 +3,7 @@ import { getHeroDetails } from "@/queries";
 import { useQuery } from "@tanstack/react-query";
 import Loader from "../Loader";
 import GenericError from "../GenericError";
+import styleVariants from "../variants/styleVariants";
 
 interface IGallery {
   variant: SectionVariant;
@@ -10,8 +11,8 @@ interface IGallery {
   tenantId: number;
 }
 
-const Gallery = ({ variant, sectionId, tenantId }: IGallery) => {
-  console.log(variant);
+const Gallery = ({ variant = "simple", sectionId, tenantId }: IGallery) => {
+  const styles = styleVariants[variant].gallery;
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["get-gallery"],
     queryFn: () => getHeroDetails({ sectionId, tenantId }),
@@ -28,7 +29,7 @@ const Gallery = ({ variant, sectionId, tenantId }: IGallery) => {
   }
 
   return (
-    <div>
+    <div className={`${styles?.bg}`}>
       <h1>Gallery</h1>
       <div className="flex flex-nowrap gap-2 mt-4">
         {data?.sectionDetails[0]?.photos?.split(",")?.map((photo: string) => (

@@ -1,14 +1,14 @@
 import { useState } from "react";
-import headerVariants from "../variants/headerVariants";
 import type { Section, Tenant } from "@/models/types";
+import styleVariants from "../variants/styleVariants";
 
 interface IHeaderProps {
-  variant?: keyof typeof headerVariants;
+  variant?: any;
   tenant: Tenant | undefined;
 }
 
 const Header = ({ variant = "simple", tenant }: IHeaderProps) => {
-  const styles = headerVariants[variant];
+  const styles = styleVariants?.[variant]?.header;
 
   const menuOptions = tenant?.sections
     ?.filter((s) => s.name !== "HEADER" && s.name !== "HEROBANNERS")

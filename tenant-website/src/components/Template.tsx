@@ -1,7 +1,6 @@
 import type { Tenant } from "@/models/types";
 import { sectionRegistry } from "./sectionRegistry";
 import Header from "./sections/Header";
-import type headerVariants from "./variants/headerVariants";
 
 interface ITemplateProps {
   tenant: Tenant | undefined;
@@ -13,10 +12,7 @@ const Template = ({ tenant }: ITemplateProps) => {
 
   return (
     <div className={wrapperClassName} style={{ scrollBehavior: "smooth" }}>
-      <Header
-        variant={tenant?.template?.variant as keyof typeof headerVariants}
-        tenant={tenant}
-      />
+      <Header variant={tenant?.template?.variant} tenant={tenant} />
 
       {tenant?.sections
         ?.filter((section) => section.name !== "HEADER")

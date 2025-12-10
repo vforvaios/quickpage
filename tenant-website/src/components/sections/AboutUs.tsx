@@ -2,17 +2,16 @@ import { getHeroDetails } from "@/queries";
 import { useQuery } from "@tanstack/react-query";
 import Loader from "../Loader";
 import GenericError from "../GenericError";
-import aboutUsVariants from "../variants/aboutUsVariants";
+import styleVariants from "../variants/styleVariants";
 
 interface IAboutUs {
-  variant: keyof typeof aboutUsVariants;
+  variant: any;
   sectionId: number;
   tenantId: number;
 }
 
-const AboutUs = ({ variant, sectionId, tenantId }: IAboutUs) => {
-  const styles = aboutUsVariants[variant];
-  console.log(styles);
+const AboutUs = ({ variant = "simple", sectionId, tenantId }: IAboutUs) => {
+  const styles = styleVariants[variant]?.aboutus;
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["get-about-us"],
     queryFn: () => getHeroDetails({ sectionId, tenantId }),
@@ -29,7 +28,7 @@ const AboutUs = ({ variant, sectionId, tenantId }: IAboutUs) => {
   }
 
   return (
-    <div className="mb-[30px]">
+    <div className={`mb-[30px] ${styles.bg} ${styles.text}`}>
       <div
         dangerouslySetInnerHTML={{ __html: data.sectionDetails[0].richText }}
       />
