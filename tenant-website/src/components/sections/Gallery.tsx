@@ -31,9 +31,12 @@ const Gallery = ({ variant = "simple", sectionId, tenantId }: IGallery) => {
   return (
     <div className={`${styles?.bg}`}>
       <h1>Gallery</h1>
-      <div className="flex flex-nowrap gap-2 mt-4">
+      <div className="flex flex-wrap gap-2 mt-4">
         {data?.sectionDetails[0]?.photos?.split(",")?.map((photo: string) => (
-          <div className="flex-1" key={photo}>
+          <div
+            className="basis-[calc(50%-0.25rem)] md:basis-[calc(33.3%-0.38rem)]"
+            key={photo}
+          >
             <img className="w-full h-auto object-contain block" src={photo} />
           </div>
         ))}
