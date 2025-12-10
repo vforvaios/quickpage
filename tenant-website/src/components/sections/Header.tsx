@@ -20,7 +20,7 @@ const Header = ({ variant = "simple", tenant }: IHeaderProps) => {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className={`w-full shadow-sm  z-50 ${styles.bg}`}>
+    <header className={`w-full z-50 ${styles.bg}`}>
       <div className="max-w-6xl mx-auto flex items-center justify-between py-4 px-6">
         {/* Logo */}
         <div className={`text-xl font-bold ${styles.text}`}>MyWebsite</div>

@@ -1,8 +1,8 @@
 import { getHeroDetails } from "@/queries";
 import { useQuery } from "@tanstack/react-query";
-import Loader from "../Loader";
 import GenericError from "../GenericError";
 import styleVariants from "../variants/styleVariants";
+import SkeletonText from "../skeletons/SkeletonText";
 
 interface IAboutUs {
   variant: any;
@@ -20,7 +20,7 @@ const AboutUs = ({ variant = "simple", sectionId, tenantId }: IAboutUs) => {
   });
 
   if (isLoading) {
-    return <Loader />;
+    return <SkeletonText />;
   }
 
   if (isError) {

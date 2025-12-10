@@ -1,9 +1,9 @@
 import type { SectionVariant } from "@/models/types";
 import { getHeroDetails } from "@/queries";
 import { useQuery } from "@tanstack/react-query";
-import Loader from "../Loader";
 import GenericError from "../GenericError";
 import styleVariants from "../variants/styleVariants";
+import SkeletonGallery from "../skeletons/SkeletonGallery";
 
 interface IGallery {
   variant: SectionVariant;
@@ -21,7 +21,7 @@ const Gallery = ({ variant = "simple", sectionId, tenantId }: IGallery) => {
   });
 
   if (isLoading) {
-    return <Loader />;
+    return <SkeletonGallery />;
   }
 
   if (isError) {

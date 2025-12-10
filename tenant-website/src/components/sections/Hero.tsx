@@ -1,8 +1,8 @@
 import type { SectionVariant } from "@/models/types";
 import { getHeroDetails } from "@/queries";
 import { useQuery } from "@tanstack/react-query";
-import Loader from "../Loader";
 import GenericError from "../GenericError";
+import SkeletonHero from "../skeletons/SkeletonHero";
 
 interface IHeroProps {
   variant: SectionVariant;
@@ -20,7 +20,7 @@ const Hero = ({ variant, sectionId, tenantId }: IHeroProps) => {
   });
 
   if (isLoading) {
-    return <Loader />;
+    return <SkeletonHero />;
   }
 
   if (isError) {
