@@ -18,10 +18,11 @@ export default function DialogPopup({ show, children, onClose }: any) {
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
           >
             <button
-              className="text-2xl leading-none absolute right-[40px] mt-2"
+              title="Κλείσιμο"
+              className="text-2xl rounded-full bg-white leading-none w-[24px] h-[24px] absolute right-[40px] mt-2 hover:bg-black hover:text-white"
               onClick={onClose}
             >
-              x
+              &times;
             </button>
             <div className="text-gray-700 ">{children}</div>
           </motion.div>
