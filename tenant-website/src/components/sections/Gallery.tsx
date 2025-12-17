@@ -43,7 +43,7 @@ const Gallery = ({ variant = "simple", sectionId, tenantId }: IGallery) => {
   }
 
   return (
-    <div className={`${styles?.bg}`}>
+    <div className={`${styles?.bg} mb-[30px]`}>
       <DialogPopup
         show={showDialogWithContent.open}
         onClose={() =>
