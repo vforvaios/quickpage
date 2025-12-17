@@ -11,7 +11,10 @@ const Header = ({ variant = "simple", tenant }: IHeaderProps) => {
   const styles = styleVariants?.[variant]?.header;
 
   const menuOptions = tenant?.sections
-    ?.filter((s) => s.name !== "HEADER" && s.name !== "HEROBANNERS")
+    ?.filter(
+      (s) =>
+        s.name !== "HEADER" && s.name !== "HEROBANNERS" && s.name !== "FOOTER"
+    )
     .map((section: Section) => ({
       label: section?.menu?.label,
       slug: section?.menu?.slug,
