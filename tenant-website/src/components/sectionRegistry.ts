@@ -1,4 +1,5 @@
 import AboutUs from "./sections/AboutUs";
+import Contact from "./sections/Contact";
 import Footer from "./sections/Footer";
 import Gallery from "./sections/Gallery";
 import Header from "./sections/Header";
@@ -9,5 +10,6 @@ export const sectionRegistry: Record<string, React.FC<any>> = {
   HEROBANNERS: Hero,
   ABOUTUS: AboutUs,
   GALLERY: Gallery,
+  CONTACT: Contact,
   FOOTER: Footer,
 };
