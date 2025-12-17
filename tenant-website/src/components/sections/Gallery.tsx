@@ -66,7 +66,7 @@ const Gallery = ({ variant = "simple", sectionId, tenantId }: IGallery) => {
               key={`${photo}_${index}`}
             >
               <img
-                className="w-full h-auto object-contain block"
+                className="w-full h-auto object-contain block cursor-pointer"
                 src={photo}
                 onClick={() => handleShowImagePopup(photo)}
               />
