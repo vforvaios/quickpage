@@ -1,4 +1,5 @@
 import AboutUs from "./sections/AboutUs";
+import Booking from "./sections/Booking";
 import Contact from "./sections/Contact";
 import Footer from "./sections/Footer";
 import Gallery from "./sections/Gallery";
@@ -12,4 +13,5 @@ export const sectionRegistry: Record<string, React.FC<any>> = {
   GALLERY: Gallery,
   CONTACT: Contact,
   FOOTER: Footer,
+  BOOKING: Booking,
 };
