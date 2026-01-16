@@ -8,5 +8,6 @@ router.get(
   "/:tenantId/section/:sectionId/details",
   Tenant.getTenantSectionDetails
 );
+router.get("/:tenantId/services", Tenant.getTenantServices);
 
 module.exports = router;

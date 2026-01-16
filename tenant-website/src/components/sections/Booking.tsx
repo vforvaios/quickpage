@@ -1,3 +1,4 @@
+import { getTenantServices } from "@/queries";
 import { useEffect, useState } from "react";
 
 type Slot = {
@@ -7,7 +8,8 @@ type Slot = {
 
 export default function Booking() {
   const [date, setDate] = useState("");
-  const [serviceId, setServiceId] = useState<number>(1);
+  const [services, setServices] = useState([]);
+  const [serviceId, setServiceId] = useState<number | undefined>(undefined);
   const [slots, setSlots] = useState<Slot[]>([
     { start: "09:00", end: "09:30" },
     { start: "09:30", end: "10:00" },
@@ -18,18 +20,20 @@ export default function Booking() {
 
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
 
+  const fetchTenantServices = async () => {
+    try {
+      const response = await getTenantServices(
+        "5dd8bbbd-b90e-4cd5-b20d-1f581538003a"
+      );
+      setServices(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
-    if (!date) return;
-
-    fetch(
-      `http://localhost:3001/api/hairdressers/1/availability?date=${date}&serviceId=${serviceId}`
-    )
-      .then((res) => res.json())
-      .then((data: Slot[]) => {
-        setSlots(data);
-        setSelectedSlot(null);
-      });
-  }, [date, serviceId]);
+    fetchTenantServices();
+    setSlots(slots);
+  }, []);
 
   const book = () => {
     if (!selectedSlot) return;
@@ -69,8 +73,11 @@ export default function Booking() {
               onChange={(e) => setServiceId(Number(e.target.value))}
               className="border rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500 outline-none"
             >
-              <option value={1}>Κούρεμα (30')</option>
-              <option value={2}>Βαφή (60')</option>
+              {services?.map((ser: any) => (
+                <option key={ser.id} value={ser.id}>
+                  {ser.name}
+                </option>
+              ))}
             </select>
           </div>
 

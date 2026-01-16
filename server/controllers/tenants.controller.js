@@ -1,4 +1,27 @@
+const config = require("../config");
 const db = require("../services/db");
+
+const getTenantServices = async (req, res, next) => {
+  try {
+    const tenantName = req.params.tenantId;
+
+    const [services] = await db.query(
+      `
+      SELECT id, name, duration_minutes, price
+      FROM TENANT_SERVICES
+      WHERE tenant_id = ? AND isActive = 1
+      ORDER BY name
+      `,
+      [tenantName]
+    );
+
+    res.status(200).json(services);
+  } catch (error) {
+    next(error);
+    console.log(error);
+    res.status(500).json({ message: config.messages.error });
+  }
+};
 
 const getWholeTenant = async (req, res, next) => {
   try {
@@ -117,6 +140,7 @@ const getTenantSectionDetails = async (req, res, next) => {
 };
 
 module.exports = {
+  getTenantServices,
   getWholeTenant,
   getTenantSectionDetails,
 };
