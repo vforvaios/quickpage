@@ -4,18 +4,19 @@ import { useEffect, useState } from "react";
 type Slot = {
   start: string;
   end: string;
+  isActive: number;
 };
 
 export default function Booking() {
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState(new Date());
   const [services, setServices] = useState([]);
   const [serviceId, setServiceId] = useState<number | undefined>(undefined);
   const [slots, setSlots] = useState<Slot[]>([
-    { start: "09:00", end: "09:30" },
-    { start: "09:30", end: "10:00" },
-    { start: "10:00", end: "10:30" },
-    { start: "11:00", end: "11:30" },
-    { start: "11:30", end: "12:00" },
+    { start: "09:00", end: "09:30", isActive: 1 },
+    { start: "09:30", end: "10:00", isActive: 0 },
+    { start: "10:00", end: "10:30", isActive: 1 },
+    { start: "11:00", end: "11:30", isActive: 0 },
+    { start: "11:30", end: "12:00", isActive: 0 },
   ]);
 
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
@@ -63,8 +64,8 @@ export default function Booking() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <input
               type="date"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
+              value={new Date(date).toISOString().substring(0, 10)}
+              onChange={(e) => setDate(new Date(e.target.value))}
               className="border rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500 outline-none"
             />
 
@@ -99,14 +100,20 @@ export default function Booking() {
                   return (
                     <button
                       key={s.start}
-                      onClick={() => setSelectedSlot(s.start)}
+                      onClick={() => {
+                        if (s.isActive) {
+                          setSelectedSlot(s.start);
+                        }
+                      }}
                       className={`
                       rounded-lg border px-3 py-2 text-sm font-medium
                       transition
                       ${
-                        isSelected
-                          ? "bg-indigo-600 text-white border-indigo-600"
-                          : "bg-white text-gray-700 hover:bg-indigo-50 hover:border-indigo-400"
+                        s.isActive
+                          ? isSelected
+                            ? "bg-indigo-600 text-white border-indigo-600"
+                            : "bg-white text-gray-700 hover:bg-indigo-50 hover:border-indigo-400"
+                          : "bg-gray-200 text-gray-500 disabled cursor-not-allowed"
                       }
                     `}
                     >
