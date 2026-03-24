@@ -3,7 +3,7 @@ const config = {
     /* don't expose password or any sensitive info, done only for demo */
     // connectionLimit: 7,
     host: `${process.env.HOST}`,
-    port: 3306,
+    port: 21836,
     user: `${process.env.DBUSER}`,
     password: `${process.env.PASSWORD}`,
     database: `${process.env.DBNAME}`,
@@ -12,6 +12,9 @@ const config = {
     connectionLimit: 50,
     // acquireTimeout: 100000,
     connectTimeout: 10000,
+    ssl: {
+      rejectUnauthorized: false, // Ή false αν δεν έχεις κατεβάσει το CA certificate
+    },
   },
   defaultTemplateId: 1,
   catalogSorting: {
